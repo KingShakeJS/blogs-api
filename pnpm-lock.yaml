@@ -167,53 +167,53 @@ importers:
   .:
     dependencies:
       express:
-        specifier: ^5.2.1
+        specifier: 5.2.1
         version: 5.2.1(supports-color@5.5.0)
     devDependencies:
       '@types/express':
-        specifier: ^5.0.6
+        specifier: 5.0.6
         version: 5.0.6
       '@types/jest':
-        specifier: ^30.0.0
+        specifier: 30.0.0
         version: 30.0.0
       '@types/node':
-        specifier: ^26.6.2
+        specifier: 26.6.2
         version: 26.6.2
       '@types/supertest':
-        specifier: ^7.2.1
+        specifier: 7.2.1
         version: 7.2.1
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.70.1
+        specifier: 8.70.1
         version: 8.70.1(@typescript-eslint/parser@8.70.1(eslint@10.11.0(supports-color@5.5.0))(supports-color@5.5.0)(typescript@7.0.2))(eslint@10.11.0(supports-color@5.5.0))(supports-color@5.5.0)(typescript@7.0.2)
       '@typescript-eslint/parser':
-        specifier: ^8.70.1
+        specifier: 8.70.1
         version: 8.70.1(eslint@10.11.0(supports-color@5.5.0))(supports-color@5.5.0)(typescript@7.0.2)
       eslint:
-        specifier: ^10.11.0
+        specifier: 10.11.0
         version: 10.11.0(supports-color@5.5.0)
       eslint-config-prettier:
-        specifier: ^10.1.8
+        specifier: 10.1.8
         version: 10.1.8(eslint@10.11.0(supports-color@5.5.0))
       eslint-plugin-prettier:
-        specifier: ^5.5.6
+        specifier: 5.5.6
         version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.11.0(supports-color@5.5.0)))(eslint@10.11.0(supports-color@5.5.0))(prettier@3.9.8)
       jest:
-        specifier: ^30.5.2
+        specifier: 30.5.2
         version: 30.5.2(@types/node@26.6.2)(supports-color@5.5.0)
       nodemon:
-        specifier: ^3.1.14
+        specifier: 3.1.14
         version: 3.1.14
       prettier:
-        specifier: ^3.9.8
+        specifier: 3.9.8
         version: 3.9.8
       supertest:
-        specifier: ^7.3.0
+        specifier: 7.3.0
         version: 7.3.0(supports-color@5.5.0)
       ts-jest:
-        specifier: ^29.4.12
+        specifier: 29.4.12
         version: 29.4.12(@babel/core@7.29.7(supports-color@5.5.0))(@jest/transform@30.5.2(supports-color@5.5.0))(@jest/types@30.5.1)(babel-jest@30.5.2(@babel/core@7.29.7(supports-color@5.5.0))(supports-color@5.5.0))(jest-util@30.5.1)(jest@30.5.2(@types/node@26.6.2)(supports-color@5.5.0))(typescript@7.0.2)
       typescript:
-        specifier: ^7.0.2
+        specifier: 7.0.2
         version: 7.0.2
 
 packages:
