@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2023",
-    "lib": ["es2023"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "lib": [
+      "es2023"
+    ],
+    "module": "commonjs",
     "rootDir": "./src",
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
@@ -12,6 +13,12 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["__tests__", "dist", "node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "__tests__",
+    "dist",
+    "node_modules"
+  ]
 }
