@@ -1,7 +1,7 @@
 export const db = {
   blogs: [
     {
-      id: 'string1',
+      id: '1',
       name: 'string1',
       description: 'string1',
       websiteUrl: 'string1',
@@ -9,7 +9,7 @@ export const db = {
   ],
   posts: [
     {
-      id: 'string2',
+      id: '2',
       title: 'string2',
       shortDescription: 'string2',
       content: 'string2',

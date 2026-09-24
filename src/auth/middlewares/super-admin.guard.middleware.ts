@@ -12,18 +12,34 @@ export const superAdminGuardMiddleware = (
     res.sendStatus(HttpStatus.Unauthorized)
     return
   }
+
   const [authType, token] = auth.split(' ')
-  if (authType !== 'Basic') {
-    res.sendStatus(HttpStatus.Unauthorized)
-    return
-  }
-  // Декодируем base64 и разбираем на логин и пароль.
-  const credentials = Buffer.from(token, 'base64').toString('utf-8')
-  const [username, password] = credentials.split(':')
-  if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+
+  // ЗАЩИТА: Проверяем тип авторизации И наличие токена
+  if (authType !== 'Basic' || !token) {
     res.sendStatus(HttpStatus.Unauthorized)
     return
   }
 
-  next()
+  try {
+    // Декодируем base64 и разбираем на логин и пароль.
+    const credentials = Buffer.from(token, 'base64').toString('utf-8')
+
+    // Дополнительная проверка на валидность формата 'username:password'
+    if (!credentials.includes(':')) {
+      res.sendStatus(HttpStatus.Unauthorized)
+      return
+    }
+
+    const [username, password] = credentials.split(':')
+    if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+      res.sendStatus(HttpStatus.Unauthorized)
+      return
+    }
+
+    next()
+  } catch (error) {
+    // На случай, если Buffer.from всё равно упадет на некорректных символах
+    res.sendStatus(HttpStatus.Unauthorized)
+  }
 }
