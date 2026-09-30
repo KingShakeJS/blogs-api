@@ -14,4 +14,32 @@ export const blogsRepository = {
     db.blogs.push(createdBlog)
     return createdBlog
   },
+
+  findById(id: string): BlogType | null {
+    // Если ничего не нашли, find вернёт undefined — приводим к null.
+    return db.blogs.find((d) => d.id === id) ?? null
+  },
+  // Принимает доменные поля (без служебных id/createdAt).
+  // Возвращает true, если водитель найден и обновлён, иначе false.
+  update(id: string, blog: Omit<BlogType, 'id'>): boolean {
+    const index = db.blogs.findIndex((d) => d.id === id)
+
+    if (index === -1) {
+      return false
+    }
+
+    // Обновляем поля, сохраняя служебные id и createdAt.
+    db.blogs[index] = { ...db.blogs[index], ...blog }
+    return true
+  },
+  delete(id: string): boolean {
+    const index = db.blogs.findIndex((d) => d.id === id)
+
+    if (index === -1) {
+      return false
+    }
+
+    db.blogs.splice(index, 1)
+    return true
+  },
 }

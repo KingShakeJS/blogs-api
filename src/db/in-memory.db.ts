@@ -9,12 +9,12 @@ export const db = {
   ],
   posts: [
     {
-      id: '2',
-      title: 'string2',
-      shortDescription: 'string2',
-      content: 'string2',
-      blogId: 'string2',
-      blogName: 'string2',
+      id: '1',
+      title: 'string1',
+      shortDescription: 'string1',
+      content: 'string1',
+      blogId: '1',
+      // blogName: 'string1',
     },
   ],
 }
