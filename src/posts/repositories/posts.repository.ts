@@ -5,6 +5,10 @@ export const postsRepository = {
   findAll(): PostType[] {
     return db.posts
   },
+  findById(id: string): PostType | null {
+    const post = db.posts.find((post) => post.id === id)
+    return post ? post : null
+  },
   create(newPost: Omit<PostType, 'id'>): PostType {
     const lastPostId = db.posts.at(-1)?.id
     const createdPost: PostType = {
