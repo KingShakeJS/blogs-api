@@ -2,7 +2,7 @@ export const db = {
   blogs: [
     {
       id: '1',
-      name: 'string1',
+      name: 'blogName1',
       description: 'string1',
       websiteUrl: 'string1',
     },

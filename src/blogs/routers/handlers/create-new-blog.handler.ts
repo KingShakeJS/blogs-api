@@ -1,4 +1,3 @@
-import { BlogType } from '../../types/blogType'
 import { blogsRepository } from '../../repositiries/blogs.repository'
 import { HttpStatus } from '../../../core/types/http-statuses'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
