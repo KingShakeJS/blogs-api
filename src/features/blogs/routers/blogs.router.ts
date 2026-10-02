@@ -38,6 +38,7 @@ blogsRouter
   )
   .delete(
     BLOGS_ROUTES.BY_ID,
+    superAdminGuardMiddleware,
     idValidation,
     inputValidationResultMiddleware,
     deleteBlogHandler,

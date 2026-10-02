@@ -11,10 +11,10 @@ export const updatePostHandler = (
   const isUpdated = postsRepository.update(req.params.id, req.body)
 
   if (!isUpdated) {
-    res
+   return   res
       .status(HttpStatus.NotFound)
       .send(createErrorMessages([{ field: 'id', message: 'Post Not Found' }]))
   }
 
-  res.sendStatus(HttpStatus.NoContent)
+ return  res.sendStatus(HttpStatus.NoContent)
 }
