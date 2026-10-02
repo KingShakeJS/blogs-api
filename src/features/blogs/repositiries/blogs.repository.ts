@@ -1,5 +1,5 @@
-import { db } from '../../db/in-memory.db.js'
-import { BlogType } from '../types/blogType.js'
+import { db } from '../../../db/in-memory.db'
+import { BlogType } from '../types/blogType'
 
 export const blogsRepository = {
   findAll(): BlogType[] {

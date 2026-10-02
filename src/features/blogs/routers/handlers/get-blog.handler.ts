@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { HttpStatus } from '../../../core/types/http-statuses.js'
-import { blogsRepository } from '../../repositiries/blogs.repository.js'
-import { createErrorMessages } from '../../../core/middlewares/validation/input-validation-result.middleware'
+import { HttpStatus } from '../../../../core/types/http-statuses'
+import { blogsRepository } from '../../repositiries/blogs.repository'
+import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
 
 export const getBlogHandler = (req: Request<{ id: string }>, res: Response) => {
   const blog = blogsRepository.findById(req.params.id)

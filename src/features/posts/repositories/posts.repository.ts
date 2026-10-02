@@ -1,4 +1,4 @@
-import { db } from '../../db/in-memory.db.js'
+import { db } from '../../../db/in-memory.db'
 import { PostType } from '../types/postType'
 
 export const postsRepository = {
@@ -17,5 +17,21 @@ export const postsRepository = {
     }
     db.posts.push(createdPost)
     return createdPost
+  },
+  update(id: string, body: Omit<PostType, 'id'>): boolean {
+    const index = db.posts.findIndex((post) => post.id === id)
+    if (index === -1) {
+      return false
+    }
+    db.posts[index] = { ...db.posts[index], ...body }
+    return true
+  },
+  delete(id: string): boolean {
+    const index = db.posts.findIndex((post) => post.id === id)
+    if (index === -1) {
+      return false
+    }
+    db.posts.splice(index, 1)
+    return true
   },
 }

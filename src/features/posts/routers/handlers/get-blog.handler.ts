@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { HttpStatus } from '../../../core/types/http-statuses'
+import { HttpStatus } from '../../../../core/types/http-statuses'
 import { postsRepository } from '../../repositories/posts.repository'
 import { blogsRepository } from '../../../blogs/repositiries/blogs.repository'
 

@@ -1,5 +1,5 @@
 import { blogsRepository } from '../../repositiries/blogs.repository'
-import { HttpStatus } from '../../../core/types/http-statuses'
+import { HttpStatus } from '../../../../core/types/http-statuses'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
 import { Request, Response } from 'express'
 
