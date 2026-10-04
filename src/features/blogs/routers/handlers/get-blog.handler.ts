@@ -3,8 +3,9 @@ import { HttpStatus } from '../../../../core/types/http-statuses'
 import { blogsRepository } from '../../repositiries/blogs.repository'
 import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
 
-export const getBlogHandler = (req: Request<{ id: string }>, res: Response) => {
-  const blog = blogsRepository.findById(req.params.id)
+export const getBlogHandler = async (req: Request<{ id: string }>, res: Response) => {
+try {
+  const blog = await blogsRepository.findById(req.params.id)
 
   if (!blog) {
     res
@@ -14,4 +15,8 @@ export const getBlogHandler = (req: Request<{ id: string }>, res: Response) => {
   }
 
   res.status(HttpStatus.Ok).send(blog)
+}catch {
+  res.sendStatus(HttpStatus.InternalServerError)
+
+}
 }

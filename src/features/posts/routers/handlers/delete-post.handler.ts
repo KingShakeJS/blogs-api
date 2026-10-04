@@ -10,7 +10,7 @@ export const deletePostHandler = async (
 ) => {
   const post = postsRepository.delete(req.params.id)
   if (!post) {
-   return  res
+    return res
       .status(HttpStatus.NotFound)
       .send(createErrorMessages([{ field: 'id', message: 'Post Not Found' }]))
   }

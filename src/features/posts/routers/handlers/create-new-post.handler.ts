@@ -10,7 +10,10 @@ export const createPostHandler = async (req: Request, res: Response) => {
       .find((blog) => blog.id === req.body.blogId)?.name
     return res
       .status(HttpStatus.Created)
-      .json({ ...postsRepository.create(req.body), blogName: blogName ? blogName : 'NoName'  })
+      .json({
+        ...postsRepository.create(req.body),
+        blogName: blogName ? blogName : 'NoName',
+      })
   }
 
   return res.sendStatus(HttpStatus.BadRequest)

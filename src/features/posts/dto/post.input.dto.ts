@@ -1,3 +1,3 @@
 import { PostType } from '../types/postType'
 
-export type BlogType = Omit<PostType, 'id'>
+export type PostInputDto = Omit<PostType, 'id'>

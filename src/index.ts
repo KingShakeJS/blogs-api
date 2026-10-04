@@ -1,14 +1,16 @@
-// создание приложения
 import express from 'express'
 import { setupApp } from './setup-app.js'
 import { SETTINGS } from './settings/config.js'
+import { runDB } from './db/mongo.db'
 
-const app = express()
-setupApp(app)
+const bootstrap = async () => {
+  const app = express()
+  setupApp(app)
+  const PORT = SETTINGS.PORT
+  await runDB(SETTINGS.MONGO_URL)
 
-const PORT = SETTINGS.PORT
-
-// ф-ия listen - запускает сервер и начинает прослушивать входящие запросы на указанном порту.
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`)
-})
+  app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`)
+  })
+}
+bootstrap()

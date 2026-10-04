@@ -3,11 +3,12 @@ import { HttpStatus } from '../../../../core/types/http-statuses'
 import { blogsRepository } from '../../repositiries/blogs.repository'
 import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
 
-export const deleteBlogHandler = (
+export const deleteBlogHandler = async (
   req: Request<{ id: string }>,
   res: Response,
 ) => {
-  const blog = blogsRepository.delete(req.params.id)
+try {
+  const blog = await blogsRepository.delete(req.params.id)
 
   if (!blog) {
     res
@@ -17,4 +18,7 @@ export const deleteBlogHandler = (
   }
 
   res.sendStatus(HttpStatus.NoContent)
+}catch {
+  res.sendStatus(HttpStatus.InternalServerError)
+}
 }

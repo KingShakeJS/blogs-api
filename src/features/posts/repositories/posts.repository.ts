@@ -1,4 +1,4 @@
-import { db } from '../../../db/in-memory.db'
+// import { db } from '../../../db/in-memory.db.depreceted'
 import { PostType } from '../types/postType'
 
 export const postsRepository = {

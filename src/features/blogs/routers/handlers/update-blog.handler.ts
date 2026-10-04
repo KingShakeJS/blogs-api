@@ -4,13 +4,13 @@ import { blogsRepository } from '../../repositiries/blogs.repository'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
 import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
 
-export const updateBlogHandler = (
+export const updateBlogHandler = async (
   req: Request<{ id: string }, {}, BlogInputDtoType>,
   res: Response,
 ) => {
-  // Тело и id уже проверены middleware-валидаторами.
-  // Репозиторий вернёт false, если водитель с таким id не найден.
-  const isUpdated = blogsRepository.update(req.params.id, req.body)
+try {
+
+  const isUpdated = await blogsRepository.update(req.params.id, req.body)
 
   if (!isUpdated) {
     res
@@ -20,4 +20,7 @@ export const updateBlogHandler = (
   }
 
   res.sendStatus(HttpStatus.NoContent)
+}catch {
+  res.sendStatus(HttpStatus.InternalServerError)
+}
 }

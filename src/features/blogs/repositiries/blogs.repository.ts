@@ -1,45 +1,35 @@
-import { db } from '../../../db/in-memory.db'
+// import { db } from '../../../db/in-memory.db.depreceted'
+import { ObjectId, WithId } from 'mongodb'
 import { BlogType } from '../types/blogType'
+import { blogCollection } from '../../../db/collections'
 
 export const blogsRepository = {
-  findAll(): BlogType[] {
-    return db.blogs
+  async findAll(): Promise<WithId<BlogType>[]> {
+    return blogCollection.find().toArray()
   },
-  create(newBlog: Omit<BlogType, 'id'>): BlogType {
-    const lastBlogId = db.blogs.at(-1)?.id
-    const createdBlog: BlogType = {
-      id: lastBlogId ? (+lastBlogId + 1).toString() : '1',
-      ...newBlog,
-    }
-    db.blogs.push(createdBlog)
-    return createdBlog
+  async create(newBlog: Omit<BlogType, '_id'>): Promise<WithId<BlogType>> {
+    const insertResult = await blogCollection.insertOne(newBlog)
+    return { ...newBlog, _id: insertResult.insertedId }
   },
 
-  findById(id: string): BlogType | null {
+  async findById(id: string): Promise<WithId<BlogType> | null> {
     // Если ничего не нашли, find вернёт undefined — приводим к null.
-    return db.blogs.find((d) => d.id === id) ?? null
+    return blogCollection.findOne({ _id: new ObjectId(id) }) || null
   },
-  // Принимает доменные поля (без служебных id/createdAt).
-  // Возвращает true, если водитель найден и обновлён, иначе false.
-  update(id: string, blog: Omit<BlogType, 'id'>): boolean {
-    const index = db.blogs.findIndex((d) => d.id === id)
 
-    if (index === -1) {
-      return false
-    }
+  async update(id: string, blog: Omit<BlogType, 'id'>): Promise<boolean> {
+    const updateResult = await blogCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: blog },
+    )
 
-    // Обновляем поля, сохраняя служебные id и createdAt.
-    db.blogs[index] = { ...db.blogs[index], ...blog }
-    return true
+    return updateResult.matchedCount > 0
   },
-  delete(id: string): boolean {
-    const index = db.blogs.findIndex((d) => d.id === id)
+  async delete(id: string): Promise<boolean> {
+    const deleteResult = await blogCollection.deleteOne({
+      _id: new ObjectId(id),
+    })
 
-    if (index === -1) {
-      return false
-    }
-
-    db.blogs.splice(index, 1)
-    return true
+    return deleteResult.deletedCount > 0
   },
 }
