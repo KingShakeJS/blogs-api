@@ -4,17 +4,21 @@ import { postsRepository } from '../../repositories/posts.repository'
 import { blogsRepository } from '../../../blogs/repositiries/blogs.repository'
 
 export const createPostHandler = async (req: Request, res: Response) => {
-  if (req.body) {
-    const blogName = blogsRepository
-      .findAll()
-      .find((blog) => blog.id === req.body.blogId)?.name
-    return res
-      .status(HttpStatus.Created)
-      .json({
-        ...postsRepository.create(req.body),
-        blogName: blogName ? blogName : 'NoName',
-      })
-  }
+  try {
+    // 1. Ищем конкретный блог по ID (в репозитории блогов должен быть метод findById)
+    // Не забываем преобразовать строку req.body.blogId в ObjectId внутри findById!
+    const targetBlog = await blogsRepository.findById(req.body.blogId)
 
-  return res.sendStatus(HttpStatus.BadRequest)
+    // 2. Создаем пост в базе данных
+    const createdPost = await postsRepository.create(req.body)
+
+    // 3. Формируем ответ клиенту
+    return res.status(HttpStatus.Created).json({
+      ...createdPost,
+      blogName: targetBlog ? targetBlog.name : 'NoName',
+    })
+  } catch (error) {
+    console.error(error)
+    return res.sendStatus(HttpStatus.InternalServerError)
+  }
 }

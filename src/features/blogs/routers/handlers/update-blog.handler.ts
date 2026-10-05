@@ -8,19 +8,18 @@ export const updateBlogHandler = async (
   req: Request<{ id: string }, {}, BlogInputDtoType>,
   res: Response,
 ) => {
-try {
+  try {
+    const isUpdated = await blogsRepository.update(req.params.id, req.body)
 
-  const isUpdated = await blogsRepository.update(req.params.id, req.body)
+    if (!isUpdated) {
+      res
+        .status(HttpStatus.NotFound)
+        .send(createErrorMessages([{ field: 'id', message: 'Blog not found' }]))
+      return
+    }
 
-  if (!isUpdated) {
-    res
-      .status(HttpStatus.NotFound)
-      .send(createErrorMessages([{ field: 'id', message: 'Blog not found' }]))
-    return
+    res.sendStatus(HttpStatus.NoContent)
+  } catch {
+    res.sendStatus(HttpStatus.InternalServerError)
   }
-
-  res.sendStatus(HttpStatus.NoContent)
-}catch {
-  res.sendStatus(HttpStatus.InternalServerError)
-}
 }

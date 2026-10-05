@@ -1,7 +1,7 @@
 import { BlogType } from '../../types/blogType'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
 
-export function mapBlogInputDtoToBlog(dto: BlogInputDtoType): Omit<BlogType, '_id'> {
+export function mapBlogInputDtoToBlog(dto: BlogInputDtoType): BlogType {
   return {
     name: dto.name,
     description: dto.description,

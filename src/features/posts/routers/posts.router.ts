@@ -6,7 +6,7 @@ import { superAdminGuardMiddleware } from '../../../auth/middlewares/super-admin
 import { inputValidationResultMiddleware } from '../../../core/middlewares/validation/input-validation-result.middleware'
 import { postInputValidation } from '../validation/post.input-dto.validation-middleware'
 import { idValidation } from '../../../core/middlewares/validation/params-id.validation.middleware'
-import { getPostHandler } from './handlers/get-blog.handler'
+import { getPostHandler } from './handlers/get-post.handler'
 import { updatePostHandler } from './handlers/update-post.handler'
 import { deletePostHandler } from './handlers/delete-post.handler'
 

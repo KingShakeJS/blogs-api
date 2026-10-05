@@ -7,7 +7,7 @@ export const blogsRepository = {
   async findAll(): Promise<WithId<BlogType>[]> {
     return blogCollection.find().toArray()
   },
-  async create(newBlog: Omit<BlogType, '_id'>): Promise<WithId<BlogType>> {
+  async create(newBlog: BlogType): Promise<WithId<BlogType>> {
     const insertResult = await blogCollection.insertOne(newBlog)
     return { ...newBlog, _id: insertResult.insertedId }
   },
@@ -17,7 +17,7 @@ export const blogsRepository = {
     return blogCollection.findOne({ _id: new ObjectId(id) }) || null
   },
 
-  async update(id: string, blog: Omit<BlogType, 'id'>): Promise<boolean> {
+  async update(id: string, blog: BlogType): Promise<boolean> {
     const updateResult = await blogCollection.updateOne(
       { _id: new ObjectId(id) },
       { $set: blog },

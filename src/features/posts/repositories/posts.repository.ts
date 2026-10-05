@@ -1,37 +1,39 @@
 // import { db } from '../../../db/in-memory.db.depreceted'
 import { PostType } from '../types/postType'
+import { postCollection } from '../../../db/collections'
+import { ObjectId, WithId } from 'mongodb'
 
 export const postsRepository = {
-  findAll(): PostType[] {
-    return db.posts
+  async findAll(): Promise<WithId<PostType>[]> {
+    return postCollection.find().toArray()
   },
-  findById(id: string): PostType | null {
-    const post = db.posts.find((post) => post.id === id)
-    return post ? post : null
+  async findById(id: string): Promise<WithId<PostType> | null> {
+    return (await postCollection.findOne({ _id: new ObjectId(id) })) || null
   },
-  create(newPost: Omit<PostType, 'id'>): PostType {
-    const lastPostId = db.posts.at(-1)?.id
-    const createdPost: PostType = {
-      id: lastPostId ? (+lastPostId + 1).toString() : '1',
+
+  async create(newPost: PostType): Promise<WithId<PostType>> {
+    // Делаем копию, чтобы не мутировать исходный объект аргумента
+
+    const insertResult = await postCollection.insertOne(newPost)
+
+    return {
       ...newPost,
+      _id: insertResult.insertedId,
     }
-    db.posts.push(createdPost)
-    return createdPost
   },
-  update(id: string, body: Omit<PostType, 'id'>): boolean {
-    const index = db.posts.findIndex((post) => post.id === id)
-    if (index === -1) {
-      return false
-    }
-    db.posts[index] = { ...db.posts[index], ...body }
-    return true
+
+  async update(id: string, body: PostType): Promise<boolean> {
+    const updateResult = await postCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: body },
+    )
+    return updateResult.matchedCount > 0
   },
-  delete(id: string): boolean {
-    const index = db.posts.findIndex((post) => post.id === id)
-    if (index === -1) {
-      return false
-    }
-    db.posts.splice(index, 1)
-    return true
+
+  async delete(id: string): Promise<boolean> {
+    const deleteResult = await postCollection.deleteOne({
+      _id: new ObjectId(id),
+    })
+    return deleteResult.deletedCount > 0
   },
 }

@@ -3,23 +3,20 @@ import { HttpStatus } from '../../../../core/types/http-statuses'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
 import { Request, Response } from 'express'
 import { mapBlogInputDtoToBlog } from '../mappers/map-blog-input-dto-to-blog.util'
-import { WithId } from 'mongodb'
 
 
-export  const createNewBlogHandler = async (
+export const createNewBlogHandler = async (
   req: Request<{}, {}, BlogInputDtoType>, // Типизируем req.body, чтобы TypeScript не ругался на blogsRepository.create
   res: Response,
 ) => {
-
   try {
     const newBlog = {
       ...mapBlogInputDtoToBlog(req.body),
     }
-        const createdBlog =
-          await blogsRepository.create(newBlog)
-        // const driverViewModel = mapToDriverViewModel(createdBlog)
+    const createdBlog = await blogsRepository.create(newBlog)
+    // const driverViewModel = mapToDriverViewModel(createdBlog)
 
-        res.status(HttpStatus.Created).send(createdBlog)
+    res.status(HttpStatus.Created).send(createdBlog)
   } catch {}
 }
 

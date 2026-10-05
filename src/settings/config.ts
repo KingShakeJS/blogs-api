@@ -6,6 +6,6 @@ export const ADMIN_PASSWORD = env.ADMIN_PASSWORD || 'qwerty'
 
 export const SETTINGS = {
   PORT: env.PORT || 5001,
-  MONGO_URL: env.MONGO_URL || 'mongodb://localhost:27017/blogs',
-  DB_NAME: env.DB_NAME || 'blogs',
+  MONGO_URL: env.MONGO_URL || 'mongodb://localhost:27017/super-blogs',
+  DB_NAME: env.DB_NAME || 'super-blogs',
 }
