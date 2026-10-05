@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { HttpStatus } from '../../../../core/types/http-statuses'
 import { blogsRepository } from '../../repositiries/blogs.repository'
 import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
+import { mapToBlogViewModel } from '../mappers/map-to-blog-view-model.utils'
 
 export const getBlogHandler = async (
   req: Request<{ id: string }>,
@@ -17,7 +18,7 @@ export const getBlogHandler = async (
       return
     }
 
-    res.status(HttpStatus.Ok).send(blog)
+    res.status(HttpStatus.Ok).send(mapToBlogViewModel(blog))
   } catch {
     res.sendStatus(HttpStatus.InternalServerError)
   }

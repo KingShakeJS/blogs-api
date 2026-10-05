@@ -1,3 +1,5 @@
-import { BlogType } from '../types/blogType'
-
-export type BlogInputDtoType = Omit<BlogType, 'id'>
+export type BlogInputDtoType = {
+  name: string
+  description: string
+  websiteUrl: string
+}

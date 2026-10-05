@@ -17,7 +17,10 @@ export const blogsRepository = {
     return blogCollection.findOne({ _id: new ObjectId(id) }) || null
   },
 
-  async update(id: string, blog: BlogType): Promise<boolean> {
+  async update(
+    id: string,
+    blog: Omit<BlogType, 'createdAt'>,
+  ): Promise<boolean> {
     const updateResult = await blogCollection.updateOne(
       { _id: new ObjectId(id) },
       { $set: blog },

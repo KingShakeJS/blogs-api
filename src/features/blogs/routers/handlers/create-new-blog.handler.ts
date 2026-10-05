@@ -3,20 +3,22 @@ import { HttpStatus } from '../../../../core/types/http-statuses'
 import { BlogInputDtoType } from '../../dto/blog.input.dto'
 import { Request, Response } from 'express'
 import { mapBlogInputDtoToBlog } from '../mappers/map-blog-input-dto-to-blog.util'
-
+import { mapToBlogViewModel } from '../mappers/map-to-blog-view-model.utils'
+import { BlogType } from '../../types/blogType'
 
 export const createNewBlogHandler = async (
   req: Request<{}, {}, BlogInputDtoType>, // Типизируем req.body, чтобы TypeScript не ругался на blogsRepository.create
   res: Response,
 ) => {
   try {
-    const newBlog = {
+    const newBlog: BlogType = {
       ...mapBlogInputDtoToBlog(req.body),
+      createdAt: new Date().toISOString(),
     }
     const createdBlog = await blogsRepository.create(newBlog)
-    // const driverViewModel = mapToDriverViewModel(createdBlog)
+    const driverViewModel = mapToBlogViewModel(createdBlog)
 
-    res.status(HttpStatus.Created).send(createdBlog)
+    res.status(HttpStatus.Created).send(driverViewModel)
   } catch {}
 }
 
