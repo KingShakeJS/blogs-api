@@ -2,14 +2,18 @@ import { Request, Response } from 'express'
 import { HttpStatus } from '../../../../core/types/http-statuses'
 import { postsRepository } from '../../repositories/posts.repository'
 import { createErrorMessages } from '../../../../core/middlewares/validation/input-validation-result.middleware'
-import { PostType } from '../../types/postType'
+import { mapPostInputDtoToPost } from '../mappers/map-post-input-dto-to-post.utils'
+import { PostInputDto } from '../../dto/post.input.dto'
 
 export const updatePostHandler = async (
-  req: Request<{ id: string }, {}, PostType>,
+  req: Request<{ id: string }, {}, PostInputDto>,
   res: Response,
 ) => {
   try {
-    const isUpdated = await postsRepository.update(req.params.id, req.body)
+    const isUpdated = await postsRepository.update(
+      req.params.id,
+      mapPostInputDtoToPost(req.body),
+    )
 
     if (!isUpdated) {
       return res

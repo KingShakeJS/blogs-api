@@ -8,7 +8,6 @@ export function mapBlogInputDtoToBlog(
     name: dto.name,
     description: dto.description,
     websiteUrl: dto.websiteUrl,
-
     isMembership: false,
   }
 }

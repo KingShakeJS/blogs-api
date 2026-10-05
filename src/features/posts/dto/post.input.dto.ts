@@ -1,3 +1,6 @@
-import { PostType } from '../types/postType'
-
-export type PostInputDto = Omit<PostType, 'id'>
+export type PostInputDto = {
+  title: string
+  shortDescription: string
+  content: string
+  blogId: string
+}

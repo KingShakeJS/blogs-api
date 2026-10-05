@@ -12,8 +12,6 @@ export const postsRepository = {
   },
 
   async create(newPost: PostType): Promise<WithId<PostType>> {
-    // Делаем копию, чтобы не мутировать исходный объект аргумента
-
     const insertResult = await postCollection.insertOne(newPost)
 
     return {
@@ -22,7 +20,10 @@ export const postsRepository = {
     }
   },
 
-  async update(id: string, body: PostType): Promise<boolean> {
+  async update(
+    id: string,
+    body: Omit<PostType, 'createdAt'>,
+  ): Promise<boolean> {
     const updateResult = await postCollection.updateOne(
       { _id: new ObjectId(id) },
       { $set: body },
